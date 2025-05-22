@@ -11,11 +11,21 @@ import org.example.myweb_backend.repository.PostRepository;
 import org.example.myweb_backend.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class PostService {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
+
+
+    public List<PostDTO> getAll() {
+        List<Post> posts = new ArrayList<>();
+        posts= postRepository.findAll();
+        return posts.stream().map(this::toDTO).toList();
+    }
 
     public PostDTO create(Long userId, PostCreateRequest request) {
         User user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException("User not found"));
@@ -55,4 +65,5 @@ public class PostService {
         dto.setComments(post.getComments());
         return dto;
     }
+
 }
