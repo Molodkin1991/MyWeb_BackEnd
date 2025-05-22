@@ -1,14 +1,15 @@
 package org.example.myweb_backend.services;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.example.myweb_backend.dto.UserCreateRequest;
 import org.example.myweb_backend.dto.UserDTO;
 import org.example.myweb_backend.dto.UserUpdateRequest;
 import org.example.myweb_backend.endpoints.User;
 import org.example.myweb_backend.exeption.NotFoundException;
-import org.example.myweb_backend.mapers.UserMapper;
 import org.example.myweb_backend.repository.UserRepository;
-import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,8 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(); ;
+
 
     public UserDTO create(UserCreateRequest request) {
         User user = new User();

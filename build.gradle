@@ -22,6 +22,11 @@ configurations {
 repositories {
     mavenCentral()
 }
+jar {
+    manifest {
+        attributes 'Main-Class': 'com.foo.bar.MainClass'
+    }
+}
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
@@ -32,7 +37,6 @@ dependencies {
     implementation 'org.flywaydb:flyway-database-postgresql'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
     runtimeOnly 'org.postgresql:postgresql'
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-validation
     implementation("org.springframework.boot:spring-boot-starter-validation:3.4.3")
